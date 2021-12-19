@@ -1,0 +1,7 @@
+name,sod_bound,prot_bound,conf
+if0,unbound,unbound,inward
+ifh,unbound,bound,inward
+ifn,bound,unbound,inward
+of0,unbound,unbound,outward
+ofh,unbound,bound,outward
+ofn,bound,unbound,outward
