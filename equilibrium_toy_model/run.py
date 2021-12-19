@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from multibind.multibind import MultibindScanner
 import matplotlib.pyplot as plt
 import numpy as np
