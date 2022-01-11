@@ -1,7 +1,7 @@
 state1,state2,value,variance,ligand,standard_state
-of0,ofh,7.5,0.03,H+,1
-of0,ofn,-2,0.5,Na+,1
-if0,ifn,-4.5,0.25,Na+,1
-if0,ifh,4.6,0.03,Na+,1
-ifn,ofn,-0.5,1,helm,1
-ofh,ifh,0,1,helm,1
+of0,ofh,6.6,0.03,H+,1
+of0,ofn,-2.8,0.5,Na+,1
+if0,ifn,-5.3,1.25,Na+,1
+if0,ifh,6.4,0.03,H+,1
+ifn,ofn,0.5,1,helm,1
+ofh,ifh,0.5,1,helm,1
