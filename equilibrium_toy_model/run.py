@@ -52,6 +52,8 @@ def main():
     concentrations = dict()
     concentrations['Na+'] = [0.01, 0.1, 0.15, 0.2, 0.25]
     concentrations['H+'] = np.linspace(0, 15, 15 * 4)
+    concentrations['H+'] = np.concatenate((concentrations['H+'], [8.0]))
+    concentrations['H+'].sort()
 
     scanner = MultibindScanner('inputs/states.csv', 'inputs/graph.csv')
     scanner.run(concentrations, svd=True)
@@ -87,6 +89,7 @@ def main():
     scanner.run(concentrations, svd=False)
 
     dg = scanner.results.free_energy.sel({'pH': 8, 'Na+': 0.100})
+    std_err = scanner.results.std_errors.sel({'pH': 8, 'Na+': 0.100})
     print(dg)
 
     values = []
@@ -94,8 +97,11 @@ def main():
     for i, j in edges:
         dg_i = dg.sel(state=i).values
         dg_j = dg.sel(state=j).values
+        si = std_err.sel(state=i).values
+        sj = std_err.sel(state=j).values
+        std_err_ij = np.sqrt(si**2 + sj**2)
         diff = dg_j - dg_i
-        print(f'{i} ({dg_i}) --> {j} ({dg_j}) => {diff}')
+        print(f'{i} ({dg_i}) --> {j} ({dg_j}) => {diff} ± {std_err_ij}')
         values.append(diff)
     print(np.sum(values))
 
