@@ -68,15 +68,17 @@ def main():
     for i, c_hp in enumerate(pH):
         for j, c_na in enumerate(Na):
             out_c = {'pH': c_hp, 'Na+': c_na}
-            conf_dg[j, i] = scanner.effective_energy_difference('conf', 'inward', 'outward', **out_c)
-            prot_dg[j, i] = scanner.effective_energy_difference('prot_bound', 'unbound', 'bound', **out_c)
-            sod_dg[j, i] = scanner.effective_energy_difference('sod_bound', 'unbound', 'bound', **out_c)
+            conf_dg[j, i], _ = scanner.effective_energy_difference('conf', 'inward', 'outward', **out_c)
+            prot_dg[j, i], _ = scanner.effective_energy_difference('prot_bound', 'unbound', 'bound', **out_c)
+            sod_dg[j, i], _ = scanner.effective_energy_difference('sod_bound', 'unbound', 'bound', **out_c)
 
     plot_msp(pH, Na, scanner, microstate_probs_dir)
     plot_free_energies(pH, Na, scanner, free_energy_dir)
     plot_dg(pH, Na, conf_dg, conf_dg_dir)
     plot_dg(pH, Na, prot_dg, protonation_dg_dir)
     plot_dg(pH, Na, sod_dg, sod_bind_dg_dir)
+
+    breakpoint()
 
     edges = [('ifh', 'if0'),
              ('if0', 'ifn'),
