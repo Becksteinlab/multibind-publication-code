@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "thermodynamic_rates"
+version = "0.1.0"
+description = ""
+authors = ["Ian Kenney <ikenney@asu.edu>"]
+
+[tool.poetry.dependencies]
+python = "^3.10,<3.11"
+numpy = "^1.22.3"
+multibind = "^0.2.0"
+matplotlib = "^3.5.1"
+seaborn = "^0.11.2"
+jupyterlab = "^3.3.4"
+pdbpp = "^0.10.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
