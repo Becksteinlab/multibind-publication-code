@@ -1,0 +1,506 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15343,        497]
+NotebookOptionsPosition[     14546,        465]
+NotebookOutlinePosition[     14882,        480]
+CellTagsIndexPosition[     14839,        477]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+Starting with a fully connected graph and using infinities for dummy \
+connections\
+\>", "Text",
+ CellChangeTimes->{{3.8527245064625797`*^9, 3.852724525550098*^9}, {
+  3.852727740735075*^9, 3.8527277414705143`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "12"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "13"], " ", "=", " ", "Infinity"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "14"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "23"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "24"], " ", "=", " ", "Infinity"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "43"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", "\n", 
+   RowBox[{"A", " ", ":=", " ", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "13"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "13"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "24"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "24"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "13"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "13"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "24"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "24"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}]}
+     },
+     GridBoxDividers->{
+      "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+       "RowsIndexed" -> {}}]}], "\n", 
+   RowBox[{"N", "[", 
+    RowBox[{"Diagonal", "[", 
+     RowBox[{"PseudoInverse", "[", "A", "]"}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.852723882145849*^9, 3.852723925392398*^9}, 
+   3.852724032610325*^9, {3.852724161832551*^9, 3.852724161930496*^9}, {
+   3.852724208696315*^9, 3.852724331610716*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.3125`", ",", "0.3125`", ",", "0.3125`", ",", "0.3125`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.852724236724872*^9, 3.852724331951501*^9}, 
+   3.852727743356605*^9}]
+}, Open  ]],
+
+Cell["\<\
+If we use real variances on the previous dummy certainties, we can get higher \
+degrees of certainty across the board\
+\>", "Text",
+ CellChangeTimes->{{3.8527245421575603`*^9, 3.852724593708601*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "12"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "13"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "14"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "23"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "24"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "43"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", "\n", 
+   RowBox[{"A", " ", ":=", " ", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "13"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "13"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "24"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "24"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "13"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "13"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "24"]], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "24"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}]}
+     },
+     GridBoxDividers->{
+      "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+       "RowsIndexed" -> {}}]}], "\n", 
+   RowBox[{"N", "[", 
+    RowBox[{"Diagonal", "[", 
+     RowBox[{"PseudoInverse", "[", "A", "]"}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.852723882145849*^9, 3.852723925392398*^9}, 
+   3.852724032610325*^9, {3.852724161832551*^9, 3.852724161930496*^9}, {
+   3.852724208696315*^9, 3.8527243559491873`*^9}, {3.8527247372687817`*^9, 
+   3.852724743046137*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.1875`", ",", "0.1875`", ",", "0.1875`", ",", "0.1875`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.852724236724872*^9, 3.852724357375835*^9}, {
+   3.852724737736521*^9, 3.8527247434803543`*^9}, 3.85272774591936*^9}]
+}, Open  ]],
+
+Cell["\<\
+We can also completely remove the dummy connections and we get the same \
+result as if we had put in the infinities\
+\>", "Text",
+ CellChangeTimes->{{3.852724609578003*^9, 3.852724638807873*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "12"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "14"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "23"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "43"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", "\n", 
+   RowBox[{"A", " ", ":=", " ", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], "0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], "0"},
+      {"0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]], "0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}]}
+     },
+     GridBoxDividers->{
+      "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+       "RowsIndexed" -> {}}]}], "\n", 
+   RowBox[{"N", "[", 
+    RowBox[{"Diagonal", "[", 
+     RowBox[{"PseudoInverse", "[", "A", "]"}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.852723882145849*^9, 3.852723925392398*^9}, 
+   3.852724032610325*^9, {3.852724161832551*^9, 3.852724161930496*^9}, {
+   3.852724208696315*^9, 3.852724331610716*^9}, {3.8527243923331013`*^9, 
+   3.85272445922612*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.3125`", ",", "0.3125`", ",", "0.3125`", ",", "0.3125`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.852724236724872*^9, 3.852724331951501*^9}, 
+   3.852724462615961*^9}]
+}, Open  ]],
+
+Cell["\<\
+Using a different variance mostly affects the uncertainties of the connected \
+nodes\
+\>", "Text",
+ CellChangeTimes->{{3.852724668917349*^9, 3.852724718098585*^9}, {
+  3.852727712758624*^9, 3.852727723809079*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "12"], " ", "=", " ", "2"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "14"], " ", "=", " ", "2"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "23"], " ", "=", " ", "1"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Sigma]", "43"], " ", "=", " ", "1"}], ";"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"A", " ", ":=", " ", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], "0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "12"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "12"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], "0"},
+      {"0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "23"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "23"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}], 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]]},
+      {
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "14"]], "0", 
+       FractionBox[
+        RowBox[{"-", "1"}], 
+        SubscriptBox["\[Sigma]", "43"]], 
+       RowBox[{
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "14"]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Sigma]", "43"]]}]}
+     },
+     GridBoxDividers->{
+      "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+       "RowsIndexed" -> {}}]}], "\n", 
+   RowBox[{"N", "[", 
+    RowBox[{"Diagonal", "[", 
+     RowBox[{"PseudoInverse", "[", "A", "]"}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.852723882145849*^9, 3.852723925392398*^9}, 
+   3.852724032610325*^9, {3.852724161832551*^9, 3.852724161930496*^9}, {
+   3.852724208696315*^9, 3.852724331610716*^9}, {3.8527243923331013`*^9, 
+   3.85272445922612*^9}, {3.852724722609335*^9, 3.8527247226769247`*^9}, {
+   3.852726044914604*^9, 3.852726044959877*^9}, {3.8527277528859043`*^9, 
+   3.852727757919374*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.59375`", ",", "0.4270833333333333`", ",", "0.34375`", ",", 
+   "0.4270833333333333`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.852724236724872*^9, 3.852724331951501*^9}, 
+   3.852724462615961*^9, 3.852724723477273*^9, 3.852726045931965*^9, {
+   3.852727754469902*^9, 3.8527277582924643`*^9}}]
+}, Open  ]]
+},
+WindowSize->{1920, 1056},
+WindowMargins->{{-2, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.1 for Linux x86 (64-bit) (March 23, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 225, 5, 33, "Text"],
+Cell[CellGroupData[{
+Cell[808, 29, 3356, 105, 386, "Input"],
+Cell[4167, 136, 212, 5, 32, "Output"]
+}, Open  ]],
+Cell[4394, 144, 209, 4, 33, "Text"],
+Cell[CellGroupData[{
+Cell[4628, 152, 3396, 106, 386, "Input"],
+Cell[8027, 260, 259, 5, 32, "Output"]
+}, Open  ]],
+Cell[8301, 268, 205, 4, 33, "Text"],
+Cell[CellGroupData[{
+Cell[8531, 276, 2515, 78, 342, "Input"],
+Cell[11049, 356, 212, 5, 32, "Output"]
+}, Open  ]],
+Cell[11276, 364, 223, 5, 33, "Text"],
+Cell[CellGroupData[{
+Cell[11524, 373, 2665, 80, 342, "Input"],
+Cell[14192, 455, 338, 7, 65, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
