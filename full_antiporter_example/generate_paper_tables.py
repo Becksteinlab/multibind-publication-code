@@ -1,3 +1,5 @@
+from typing import List, Union
+import pathlib
 from multibind.nonequilibrium import rate_matrix
 import numpy as np
 import math
@@ -10,7 +12,7 @@ ofh = "OFH"
 of0 = "OF0"
 ofn = "OFNA"
 
-
+# Order for tables to output
 ordering = [(ifh, ofh),
             (ofh, of0),
             (of0, ofn),
@@ -20,11 +22,15 @@ ordering = [(ifh, ofh),
             ]
 
 
-def dG2pKa(dG, pH):
+def dG2pKa(dG : float, pH : float = 0.0) -> float:
+    '''Convert Delta G to pKa given the pH.
+    '''
     return pH - dG / math.log(10)
 
 
-def format_name(name):
+def format_name(name : str):
+    '''Take in a state name and format it for latex.
+    '''
     if "NA" in name:
         return name[0:2] + r"(Na$^+$)"
     if "H" in name:
@@ -33,7 +39,9 @@ def format_name(name):
         return name[0:2] + r"(0)"
 
 
-def table_from_entries(entries, bars=True, dG_err=None):
+def table_from_entries(entries, bars=True, dG_err=None) -> None:
+    '''Print out a latex table from rate entries.
+    '''
     table = """
 \\begin{table}[]
 \\begin{tabular}{@{}lllll@{}}
@@ -79,8 +87,9 @@ State 1 & State 2 & $\\bar k_{12} \\pm \\bar \\sigma_{12}$ (s$^{-1}$) & $\\bar k
     print(table)
 
 
-def raw_rates_table(rate_file):
-
+def raw_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
+    '''Generate latex table from the raw rates file and print to screen.
+    '''
     entries = []
     with open(rate_file, 'r') as F:
         for _line in F:
@@ -93,7 +102,9 @@ def raw_rates_table(rate_file):
     table_from_entries(entries, bars=True)
 
 
-def corrected_rates_table(rate_file):
+def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
+    '''Generate latex table from the multibind corrected rates and print to screen.
+    '''
     pH = 8
     Na = 0.1  # 100 mM
 
@@ -142,7 +153,7 @@ def corrected_rates_table(rate_file):
 
 
 def main():
-    rate_file = "inputs/rates.csv"
+    rate_file = "inputs/md_rates.csv"
 
     raw_rates_table(rate_file)
     corrected_rates_table(rate_file)

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+from typing import Union
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 import seaborn as sns
+from multibind.multibind import MultibindScanner
 
 state_colors = {
         'IF0': '#e41a1c', #  RED
@@ -34,8 +36,25 @@ sod_colors = [
 ]
 
 
-def run(scanner):
-    img_dir = Path('.') / 'img' / 'equil'
+def run(scanner : MultibindScanner, basepath : Union[str, Path, None] = None) -> None:
+    '''From a scanner, run a full equilibrium analysis.
+
+    This generates the following images:
+        conf_dg (conformational free energy profiles)
+        msp (microstate probabilities)
+        free_energy (state free energies as a function of concentration, sanity checks)
+        prot_dg (free energy of protonation)
+        sod_bind_dg (sodium binding free energy)
+
+    '''
+    
+    if basepath is None:
+        basepath = Path('.')
+    elif basepath is str:
+        basepath = Path(basepath)
+
+    # define all relevant image directories
+    img_dir = basepath / 'img' / 'equil'
     conf_dg_dir = img_dir / 'conf_dg'
     free_energy_dir = img_dir / 'free_energy'
     microstate_probs_dir = img_dir / 'msp'
@@ -75,8 +94,6 @@ def run(scanner):
     plot_dg(pH, Na, conf_dg, conf_dg_dir)
     plot_dg(pH, Na, prot_dg, protonation_dg_dir)
     plot_dg(pH, Na, sod_dg, sod_bind_dg_dir)
-
-    breakpoint()
 
     edges = [('IFH', 'IF0'),
              ('IF0', 'IFNA'),

@@ -11,6 +11,20 @@ RT = R * T
 
 
 def transport(c, rates, h_counter, na_counter, **kwargs):
+    '''
+    c0 = kwargs.get('c0', 1)
+
+    c_h_in = kwargs.get('c_h_in', c0 * 10 ** (-7.4))
+
+    c_h_out = kwargs.get('c_h_out', c0 * 10 ** (-7.0))
+
+    c_na_in = kwargs.get('c_na_in', 0.010)
+
+    c_na_out = kwargs.get('c_na_out', 0.100)
+
+    voltage = kwargs.get('voltage', -0.100)
+    
+    '''
     c0 = kwargs.get('c0', 1)  # molar
     c_h_in = kwargs.get('c_h_in', c0 * 10 ** (-7.4))   # pH = 7.4
     c_h_out = kwargs.get('c_h_out', c0 * 10 ** (-7.0))  # pH = 7

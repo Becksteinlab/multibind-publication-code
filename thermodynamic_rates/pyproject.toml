@@ -12,6 +12,7 @@ matplotlib = "^3.5.1"
 seaborn = "^0.11.2"
 jupyterlab = "^3.3.4"
 pdbpp = "^0.10.3"
+Pint = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
 
