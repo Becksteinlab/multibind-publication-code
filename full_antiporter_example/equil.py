@@ -107,7 +107,6 @@ def run(scanner : MultibindScanner, basepath : Union[str, Path, None] = None) ->
 
     dg = scanner.results.free_energy.sel({'pH': 8, 'Na+': 0.100})
     std_err = scanner.results.std_errors.sel({'pH': 8, 'Na+': 0.100})
-    print(dg)
 
     values = []
 
@@ -135,9 +134,11 @@ def plot_dg(pH, Na, data, outdir, ylim=[None, None]):
     ax.set_xlim([0, 15])
 
     filename = outdir / 'profile.pdf'
-    plt.savefig(filename)
     plt.tight_layout()
+    plt.savefig(filename)
+    fig.clear()
     plt.cla()
+    plt.clf()
 
 
 def plot_free_energies(pH, Na, scanner, outdir):
@@ -161,7 +162,8 @@ def plot_free_energies(pH, Na, scanner, outdir):
         filename = outdir / f'na_{c_na}.pdf'
         plt.tight_layout()
         plt.savefig(filename)
-        plt.clf()
+        plt.cla()
+        plt.close('all')
 
 
 def plot_msp(pH, Na, scanner, outdir):
@@ -186,7 +188,8 @@ def plot_msp(pH, Na, scanner, outdir):
         filename = outdir / f'na_{c_na}.pdf'
         plt.tight_layout()
         plt.savefig(filename)
-        plt.clf()
+        plt.cla()
+        plt.close('all')
 
 
 if __name__ == "__main__":
