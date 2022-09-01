@@ -1,8 +1,7 @@
-from typing import List, Union
-import pathlib
 from multibind.nonequilibrium import rate_matrix
-import numpy as np
 import math
+import pathlib
+from typing import List, Union
 
 
 ifh = "IFH"
@@ -133,11 +132,11 @@ def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
         if state1[-1] == "0" and state2[-1] == "H":
             new_graph.at[index, 'ligand'] = "H+"
             new_graph.at[index, 'value'] = dG2pKa(new_graph.value[index], pH)
-            new_graph.at[index, 'variance'] = new_graph.variance[index] / np.log(10)**2
+            new_graph.at[index, 'variance'] = new_graph.variance[index] / math.log(10)**2
 
         if state1[-1] == "0" and state2[-1] == "A":
             new_graph.at[index, 'ligand'] = "Na+"
-            new_graph.at[index, 'value'] = new_graph.value[index] + np.log(Na)
+            new_graph.at[index, 'value'] = new_graph.value[index] + math.log(Na)
 
     dG_err = []
     entries = []
@@ -160,10 +159,13 @@ def main():
     except IndexError as e:
         rate_file = pathlib.Path('inputs') / 'diffusion_rates.csv'
 
+    print('============== RAW RATES ==============\n')
     raw_rates_table(rate_file)
-    corrected_rates_table(rate_file)
+    print('=======================================\n\n')
 
-    print(argv)
+    print('=========== CORRECTED RATES ===========\n')
+    corrected_rates_table(rate_file)
+    print('=======================================\n\n')
 
 if __name__ == "__main__":
     main()
