@@ -153,11 +153,17 @@ def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
 
 
 def main():
-    rate_file = "inputs/md_rates.csv"
+    from sys import argv
+
+    try:
+        rate_file = pathlib.Path(argv[1])
+    except IndexError as e:
+        rate_file = pathlib.Path('inputs') / 'md_rates.csv'
 
     raw_rates_table(rate_file)
     corrected_rates_table(rate_file)
 
+    print(argv)
 
 if __name__ == "__main__":
     main()
