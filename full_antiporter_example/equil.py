@@ -134,7 +134,7 @@ def plot_dg(pH, Na, data, outdir, ylim=[None, None]):
     ax.set_xlim([0, 15])
 
     filename = outdir / 'profile.pdf'
-    plt.tight_layout()
+    # plt.tight_layout()
     plt.savefig(filename)
     fig.clear()
     plt.cla()
@@ -160,7 +160,7 @@ def plot_free_energies(pH, Na, scanner, outdir):
         sns.despine(offset=5, ax=ax)
 
         filename = outdir / f'na_{c_na}.pdf'
-        plt.tight_layout()
+        # plt.tight_layout()
         plt.savefig(filename)
         plt.cla()
         plt.close('all')
@@ -186,7 +186,7 @@ def plot_msp(pH, Na, scanner, outdir):
         sns.despine(offset=5, ax=ax)
 
         filename = outdir / f'na_{c_na}.pdf'
-        plt.tight_layout()
+        # plt.tight_layout()
         plt.savefig(filename)
         plt.cla()
         plt.close('all')
