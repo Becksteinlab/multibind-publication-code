@@ -50,23 +50,23 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
     charge_H = charge
     charge_N = charge
 
-    Gp[0, 5] *= np.exp(charge_H * 0.8 * voltage_scaling)
-    Gp[5, 0] *= np.exp(- charge_H * 0.8 * voltage_scaling)
+    Gp[0, 5] *= np.exp(charge_H * 0.5 * voltage_scaling)
+    Gp[5, 0] *= np.exp(- charge_H * 0.5 * voltage_scaling)
 
-    Gp[2, 3] *= np.exp(charge_N * 0.8 * voltage_scaling)
-    Gp[3, 2] *= np.exp(- charge_N * 0.8 * voltage_scaling)
+    Gp[2, 3] *= np.exp(charge_N * 0.5 * voltage_scaling)
+    Gp[3, 2] *= np.exp(- charge_N * 0.5 * voltage_scaling)
 
-    Gp[5, 4] *= np.exp(charge_H * 0.1 * voltage_scaling)
-    Gp[4, 5] *= np.exp(- charge_H * 0.1 * voltage_scaling)
+    # Gp[5, 4] *= np.exp(charge_H * 0.1 * voltage_scaling)
+    # Gp[4, 5] *= np.exp(- charge_H * 0.1 * voltage_scaling)
 
-    Gp[4, 3] *= np.exp(- charge_N * 0.1 * voltage_scaling)
-    Gp[3, 4] *= np.exp(charge_N * 0.1 * voltage_scaling)
+    # Gp[4, 3] *= np.exp(- charge_N * 0.1 * voltage_scaling)
+    # Gp[3, 4] *= np.exp(charge_N * 0.1 * voltage_scaling)
 
-    Gp[1, 2] *= np.exp(charge_N * 0.1 * voltage_scaling)
-    Gp[2, 1] *= np.exp(charge_N * -0.1 * voltage_scaling)
+    # Gp[1, 2] *= np.exp(charge_N * 0.1 * voltage_scaling)
+    # Gp[2, 1] *= np.exp(charge_N * -0.1 * voltage_scaling)
 
-    Gp[1, 0] *= np.exp(charge_H * 0.1 * voltage_scaling)
-    Gp[0, 1] *= np.exp(charge_H * -0.1 * voltage_scaling)
+    # Gp[1, 0] *= np.exp(charge_H * 0.1 * voltage_scaling)
+    # Gp[0, 1] *= np.exp(charge_H * -0.1 * voltage_scaling)
 
     n = c.states.shape[0]
 
