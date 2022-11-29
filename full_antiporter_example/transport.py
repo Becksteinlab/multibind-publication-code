@@ -43,7 +43,7 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
     Gp[4, 3] *= c_na_out / na_counter
     Gp[4, 5] *= c_h_out / h_counter
 
-    voltage_scaling = voltage * F / RT / 2
+    voltage_scaling = voltage * F / RT
 
     charge = kwargs.get('charge', 1)
 
