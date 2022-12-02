@@ -5,7 +5,7 @@ description = ""
 authors = ["Ian Kenney <ikenney@asu.edu>"]
 
 [tool.poetry.dependencies]
-python = "^3.10,<3.11"
+python = "^3.9,<3.11"
 numpy = "^1.22.3"
 multibind = "^0.2.0"
 matplotlib = "^3.5.1"
