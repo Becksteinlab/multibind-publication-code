@@ -47,8 +47,8 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
 
     charge = kwargs.get('charge', 1)
 
-    charge_H = charge
-    charge_N = charge
+    charge_H = kwargs.get('charge_H', charge)
+    charge_N = kwargs.get('charge_N', charge)
 
     Gp[0, 5] *= np.exp(charge_H * 0.5 * voltage_scaling)
     Gp[5, 0] *= np.exp(- charge_H * 0.5 * voltage_scaling)
