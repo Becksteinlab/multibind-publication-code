@@ -1,17 +1,33 @@
+"""Module to compute transport quantities for the toy antiporter system.
+
+It is capable of producing predictions for electrogenic and electroneutral
+systems.
+"""
+
 from multibind.nonequilibrium import rate_matrix
 import numpy as np
 from numpy.linalg import svd
 import matplotlib.pyplot as plt
 
-R = 8.314472
-T = 310
-F = 96485.3321
-
-RT = R * T
+k_B = 1.380649e-23  # J/K
+T = 310  # K
+kT = k_B * T
+e = 1.602176634e-19  # C
 
 
 def transport(c, rates, h_counter, na_counter, **kwargs):
-    '''
+    """Calculate the proton transfer as a function of system paramters.
+
+    h_counter: the proton concentration at which the non-standard state rates
+               were defined.
+
+    na_counter: the sodium concentration at which the non-standard state rates
+               were defined.
+
+    Charges are defined in multiples of the elementary charge e.
+
+    Default values below.
+
     c0 = kwargs.get('c0', 1)
 
     c_h_in = kwargs.get('c_h_in', c0 * 10 ** (-7.4))
@@ -22,9 +38,8 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
 
     c_na_out = kwargs.get('c_na_out', 0.100)
 
-    voltage = kwargs.get('voltage', -0.100)
-    
-    '''
+    voltage = kwargs.get('voltage', -0.100) Measured as in-out
+    """
     c0 = kwargs.get('c0', 1)  # molar
     c_h_in = kwargs.get('c_h_in', c0 * 10 ** (-7.4))   # pH = 7.4
     c_h_out = kwargs.get('c_h_out', c0 * 10 ** (-7.0))  # pH = 7
@@ -43,33 +58,22 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
     Gp[4, 3] *= c_na_out / na_counter
     Gp[4, 5] *= c_h_out / h_counter
 
-    voltage_scaling = voltage * F / RT
-
     charge = kwargs.get('charge', 1)
 
     charge_H = kwargs.get('charge_H', charge)
     charge_N = kwargs.get('charge_N', charge)
 
-    Gp[0, 5] *= np.exp(charge_H * 0.5 * voltage_scaling)
-    Gp[5, 0] *= np.exp(- charge_H * 0.5 * voltage_scaling)
+    # H+ out to H+ in
+    Gp[0, 5] *= np.exp(charge_H * e * 0.5 * voltage / kT)
+    # H+ in to H+ out
+    Gp[5, 0] *= np.exp(-charge_H * e * 0.5 * voltage / kT)
 
-    Gp[2, 3] *= np.exp(charge_N * 0.5 * voltage_scaling)
-    Gp[3, 2] *= np.exp(- charge_N * 0.5 * voltage_scaling)
-
-    # Gp[5, 4] *= np.exp(charge_H * 0.1 * voltage_scaling)
-    # Gp[4, 5] *= np.exp(- charge_H * 0.1 * voltage_scaling)
-
-    # Gp[4, 3] *= np.exp(- charge_N * 0.1 * voltage_scaling)
-    # Gp[3, 4] *= np.exp(charge_N * 0.1 * voltage_scaling)
-
-    # Gp[1, 2] *= np.exp(charge_N * 0.1 * voltage_scaling)
-    # Gp[2, 1] *= np.exp(charge_N * -0.1 * voltage_scaling)
-
-    # Gp[1, 0] *= np.exp(charge_H * 0.1 * voltage_scaling)
-    # Gp[0, 1] *= np.exp(charge_H * -0.1 * voltage_scaling)
+    # Na+ out to Na+ in
+    Gp[2, 3] *= np.exp(charge_N * e * 0.5 * voltage / kT)
+    # Na+ in to Na+ out
+    Gp[3, 2] *= np.exp(-charge_N * e * 0.5 * voltage / kT)
 
     n = c.states.shape[0]
-
     Gp = Gp.T
 
     for i in range(n):
@@ -86,7 +90,6 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
         raise ValueError("SVD failed.")
 
     U_inv = U.T
-
     S_inv = np.diag(1 / S)
     VT_inv = VT.T
 
@@ -129,35 +132,4 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
         drive.append(-np.log(Gp.T[i_i, i_j] / Gp.T[i_j, i_i]))
         connection_labels.append(f"{i}/{j}")
 
-
     return net[0], drive, connection_labels, steady_state_populations, Gp.T
-
-
-def main():
-
-    voltages = np.linspace(-0.5, 0.5, 100)
-    na_out = np.logspace(-3, 0, 20)
-    for i, v in enumerate(voltages):
-        fig, (ax_trans, ax_drive, ax_pops) = plt.subplots(3)
-        fluxes = []
-        for na in na_out:
-            flux, drive, connection_labels, pops = transport(**{'c_na_out': na, 'voltage': v})
-            ax_drive.plot(drive, 'o')
-            ax_pops.plot(pops, 'o')
-            fluxes.append(-flux)
-        ax_trans.semilogx(na_out, fluxes, '-', label=f"{v:.5f} V")
-        ax_trans.set_xlabel("[Na+] (M)")
-        ax_trans.axvline(0.1, color='black')
-        ax_trans.set_ylabel("steady-state turnover")
-        ax_drive.axhline(0, color='black')
-
-        ax_trans.set_ylim([-50, 50])
-        ax_pops.set_ylim([0, 1])
-        ax_drive.set_ylim([-20, 20])
-
-        ax_trans.legend(loc='best')
-        plt.savefig(f"bsimg/{i:04}.png")
-        plt.cla()
-
-if __name__ == "__main__":
-    main()
