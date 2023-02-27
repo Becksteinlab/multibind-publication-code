@@ -48,6 +48,11 @@ class State(object):
         same_ligand = self.ligand == other.ligand
         return same_conf and same_ligand
 
+    def __str__(self) -> str:
+        """String represenation of a state."""
+        ligand = "0" if self.is_empty else self.ligand
+        return f"{self.conf}({ligand})"
+
 
 IF = "IF"
 OF = "OF"
@@ -66,6 +71,11 @@ rates = (
     (State(IF, H),     State(IF, Empty),      7888.67,   31.22),
     (State(IF, Empty), State(IF, Na),    319948241.25, 6504.61),
     (State(IF, Na),    State(IF, Empty),  76739017.89, 2677.41),
+    # CONF
+    (State(IF, Na),    State(OF, Na),         4990.12,   18.53),
+    (State(IF, Na),    State(OF, Na),         8006.22,   12.17),
+    (State(IF, H),     State(OF, H),          8006.22,   12.17),
+    (State(IF, H),     State(OF, H),          4990.12,   18.53),
 )
 
 
@@ -98,6 +108,18 @@ def dG_to_kD(dG, c_Na=c_Na):
     return np.exp(dG)*c_Na
 
 
+def print_second_order_rate_constants(rates):
+    """Over all rates, print the second order rate constants."""
+    for s1, s2, rate, sigma in rates:
+        if s1.is_empty and s2.has_proton:
+            rate /= c_H
+            sigma /= c_H
+        if s1.is_empty and s2.has_sodium:
+            rate /= c_Na
+            sigma /= c_Na
+        print(f"{str(s1):8} -> {str(s2):8} ==> {rate} +- {sigma}")
+
+
 def main():
     """Print resulting K_D and pKas from the equilibrium model.
 
@@ -116,10 +138,13 @@ def main():
     IFkD = dG_to_kD(dG_from_rates(IF0, IFNA, rates))
     OFkD = dG_to_kD(dG_from_rates(OF0, OFNA, rates))
 
+    print("===== pKa and kD =====")
     print(f"IF pKa: {IFpKa}")
     print(f"OF pKa: {OFpKa}")
-    print(f"IF kD: {IFkD}")
-    print(f"OF kD: {OFkD}")
+    print(f"IF kD: {1000 * IFkD} mM")
+    print(f"OF kD: {1000 * OFkD} mM")
+    print("======================")
+    print_second_order_rate_constants(rates)
 
 
 if __name__ == "__main__":
