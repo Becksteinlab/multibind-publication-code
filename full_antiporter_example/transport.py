@@ -119,6 +119,8 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
 
     states = c.states.values
 
+    target_flux = None
+
     for i, j in connections:
         i_i = np.argwhere(states == i)[0, 0]
         i_j = np.argwhere(states == j)[0, 0]
@@ -132,4 +134,10 @@ def transport(c, rates, h_counter, na_counter, **kwargs):
         drive.append(-np.log(Gp.T[i_i, i_j] / Gp.T[i_j, i_i]))
         connection_labels.append(f"{i}/{j}")
 
-    return net[0], drive, connection_labels, steady_state_populations, Gp.T
+        if (j == "IFH") and (i == "OFH"):
+            target_flux = net[-1]
+
+    if not target_flux:
+        raise RuntimeError("Didn't find operational edge")
+
+    return -target_flux, drive, connection_labels, steady_state_populations, Gp.T
