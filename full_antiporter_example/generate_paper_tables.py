@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from multibind.nonequilibrium import rate_matrix
 import math
 import pathlib
@@ -18,16 +20,16 @@ ordering = [(ifh, ofh),
             (ofn, ifn),
             (ifn, if0),
             (if0, ifh),
-            ]
+            (of0, if0)]
 
 
-def dG2pKa(dG : float, pH : float = 0.0) -> float:
+def dG2pKa(dG: float, pH: float = 0.0) -> float:
     '''Convert Delta G to pKa given the pH.
     '''
     return pH - dG / math.log(10)
 
 
-def format_name(name : str):
+def format_name(name: str):
     '''Take in a state name and format it for latex.
     '''
     if "NA" in name:
@@ -55,7 +57,10 @@ State 1 & State 2 & $\\bar k_{12} \\pm \\bar \\sigma_{12}$ (s$^{-1}$) & $\\bar k
                 entry = e
                 break
         if not entry:
+            if s1 == of0 and s2 == if0:
+                continue
             raise ValueError
+
         ordered_entries.append(entry)
 
     if dG_err:
@@ -68,7 +73,7 @@ State 1 & State 2 & $\\bar k_{12} \\pm \\bar \\sigma_{12}$ (s$^{-1}$) & $\\bar k
         dG = f"{-math.log(k / bk):0.3f}"
         dG_std = math.sqrt(var / k**2 + bvar / bk**2)
 
-        if dG_err:
+        if dG_err:  # only used with the corrected rates
             dG_std = dG_err[i]
 
         append_value = f"{format_name(s1)} & {format_name(s2)} & ${k:0.2f} \\pm {var**0.5:0.2f}$ & ${bk:0.2f} \\pm {bvar**0.5:0.2f}$  & ${dG} \\pm {dG_std:0.3f}$ \\\\"
@@ -86,7 +91,7 @@ State 1 & State 2 & $\\bar k_{12} \\pm \\bar \\sigma_{12}$ (s$^{-1}$) & $\\bar k
     print(table)
 
 
-def raw_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
+def raw_rates_table(rate_file: Union[str, pathlib.Path]) -> None:
     '''Generate latex table from the raw rates file and print to screen.
     '''
     entries = []
@@ -97,11 +102,10 @@ def raw_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
                 continue
             s1, s2, v, sigma = line
             entries.append((s1, s2, float(v), float(sigma)))
-
     table_from_entries(entries, bars=True)
 
 
-def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
+def corrected_rates_table(rate_file: Union[str, pathlib.Path]):
     '''Generate latex table from the multibind corrected rates and print to screen.
     '''
     pH = 8
@@ -117,7 +121,6 @@ def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
 
     for index, data in new_graph.iterrows():
         state1, state2, value, variance, ligand, std = data
-        # print(state1, state2, value, variance, ligand, std)
 
         if (state1[-1] == "H" and state2[-1] == "0") or (state1[-1] == "A" and state2[-1] == "0"):
             # backwards proton reaction
@@ -138,7 +141,7 @@ def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
             new_graph.at[index, 'ligand'] = "Na+"
             new_graph.at[index, 'value'] = new_graph.value[index] + math.log(Na)
 
-    dG_err = []
+    dG_err = []  # collect errors from Cramer rao
     entries = []
     for s1, s2 in ordering:
         s1_idx = list(filter(lambda x: x[1][0] == s1, enumerate(states)))[0][0]
@@ -149,6 +152,35 @@ def corrected_rates_table(rate_file : Union[str, pathlib.Path]) -> None:
         dG_err.append(math.sqrt(g_std_err[s2_idx]**2 + g_std_err[s1_idx]**2))
 
     table_from_entries(entries, bars=False, dG_err=dG_err)
+
+    return entries
+
+
+def corrected_rates_table_to_tuple(entries):
+
+    rows = ""
+
+    def corrected_ligand_name(name):
+        if name == "H":
+            return "H"
+        elif name == "NA":
+            return "Na"
+        else:
+            return "Empty"
+
+    for s1, s2, rate, sigma in entries:
+        conf1 = s1[0:2]
+        ligand1 = corrected_ligand_name(s1[2:])
+        conf2 = s2[0:2]
+        ligand2 = corrected_ligand_name(s2[2:])
+
+        rows += f"    (State({conf1}, {ligand1}), State({conf2}, {ligand2}), {rate}, {sigma**0.5}),\n"
+
+    command = f"""
+rates = (
+{rows})
+"""
+    print(command)
 
 
 def main():
@@ -164,8 +196,13 @@ def main():
     print('=======================================\n\n')
 
     print('=========== CORRECTED RATES ===========\n')
-    corrected_rates_table(rate_file)
+    entries = corrected_rates_table(rate_file)
     print('=======================================\n\n')
+
+    print('========== CORRECTED RATES* ===========\n')
+    corrected_rates_table_to_tuple(entries)
+    print('=======================================\n\n')
+
 
 if __name__ == "__main__":
     main()
