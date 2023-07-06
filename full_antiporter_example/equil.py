@@ -100,7 +100,8 @@ def run(scanner : MultibindScanner, basepath : Union[str, Path, None] = None) ->
              ('IFNA', 'OFNA'),
              ('OFNA', 'OF0'),
              ('OF0', 'OFH'),
-             ('OFH', 'IFH')]
+             ('OFH', 'IFH'),
+             ('OF0', 'IF0')]
 
     concentrations['H+'] = [8]
     scanner.run(concentrations, svd=False)
@@ -193,4 +194,4 @@ def plot_msp(pH, Na, scanner, outdir):
 
 
 if __name__ == "__main__":
-    run()
+    pass
